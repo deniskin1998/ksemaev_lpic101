@@ -1,0 +1,49 @@
+1. Для просмотра информаци о процессоре можно воспользоваться нескольками путями:
+а) Команда lscpu
+б) Просмотреть файл cat /proc/cpuinfo
+Это те варианты которыми воспользовался
+Далее нужно узнать информацию о модулях оперативной памяти 
+а) Команда lsmem
+б) Просмотреть файл cat /proc/meminfo
+в) Запустить команду top, htop 
+Первое задание я выполнил так , надеюсь что я правильно полнял суть задания
+
+2. Определить модель жесткого диска.
+Немного посматрев на примеры как это делают другие специалисты выделил для себя эти варианты:
+a)Через команду hdparm -i /dev/sda
+На выводе получил следующие: 
+/dev/sda:
+
+ Model=VBOX HARDDISK, FwRev=1.0, SerialNo=VB64d28634-ce8743d8
+ Config={ Fixed }
+ RawCHS=16383/16/63, TrkSize=0, SectSize=512, ECCbytes=0
+ BuffType=DualPortCache, BuffSize=256kB, MaxMultSect=128, MultSect=128
+ CurCHS=16383/16/63, CurSects=16514064, LBA=yes, LBAsects=62914560
+ IORDY=yes, tPIO={min:120,w/IORDY:120}, tDMA={min:120,rec:120}
+ PIO modes:  pio0 pio3 pio4
+ DMA modes:  mdma0 mdma1 mdma2
+ UDMA modes: udma0 udma1 udma2 udma3 udma4 udma5 *udma6
+ AdvancedPM=no WriteCache=enabled
+ Drive conforms to: unknown:  ATA/ATAPI-1,2,3,4,5,6
+
+б) И спомощью командной утилиты parted или gparted:
+sudo parted
+GNU Parted 3.3
+Используется /dev/sda
+Добро пожаловать в GNU Parted! Наберите 'help' для просмотра списка команд.
+(parted) print
+Модель: ATA VBOX HARDDISK (scsi)
+Диск /dev/sda: 32,2GB
+Размер сектора (логич./физич.): 512B/512B
+Таблица разделов: msdos
+
+3. Вывести сведения обо всех платах расширения на шине PCIEx.
+Команда lspci показывает подробную информацию о PCI устройствах.
+
+4. Отключить звуковую карту
+Запускаем команду lsmod и ищем что-то похожие на snd_ac97...
+Заходим в файл /etc/modprobe.d/blacklist.conf и добаляем туда строчку blaclist snd_ac97..
+
+5. Выключить контроллер usb
+Как я понял можно запустить команду lsusb и далее по примеру с решением как в 4 варианте
+
